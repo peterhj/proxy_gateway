@@ -1,0 +1,45 @@
+[package]
+name = "proxy_gateway"
+version = "0.1.0-devel"
+authors = ["Peter Jin"]
+edition = "2018"
+
+[profile.dev]
+#opt-level = 0
+opt-level = 1
+debug = true
+overflow-checks = true
+panic = "abort"
+#codegen-units = 1
+#incremental = false
+codegen-units = 256
+incremental = true
+lto = false
+
+[profile.release]
+opt-level = 3
+debug = true
+overflow-checks = true
+panic = "abort"
+codegen-units = 1
+incremental = false
+lto = false
+#lto = "thin"
+
+[build-dependencies]
+time = { path = "../time-0.1" }
+
+[dependencies]
+http1 = { path = "../http1" }
+native_tls = { path = "../native_tls" }
+once_cell = { path = "../once_cell" }
+service_base = { path = "../service_base" }
+signal_hook = { path = "../signal_hook" }
+smol_str = { path = "../smol_str", default-features = false }
+time = { path = "../time-0.1" }
+uacme = { path = "../uacme" }
+unix2 = { path = "../unix2" }
+
+[[bin]]
+name = "proxy_gateway"
+path = "tools/proxy_gateway.rs"
